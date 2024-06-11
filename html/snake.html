@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/snake.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Snake </title>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Snake</h1>
+		<p>Haz click en el recuadro<br>Usa las flechas o 'WASD' para moverte</p>
+		<canvas id="canvas" width="256" height="256">
+			Your browser does not support the HTML canvas tag.
+		</canvas>
+		<div class="score-container">
+			<p id="score">Score: 0</p>
+			<p id="high-score">High Score: 0</p>
+		</div>
+		<div class="scoreboard">
+			<h2>Subir puntaje:</h2>
+			<form action="javascript:;" onsubmit="submitScore(this.username.value)">
+				<label for="username">Usuario:</label>
+				<input type="text" id="username" name="username"><br>
+				<input type="submit" id="submit" value="Subir">
+			</form>
+		</div>
+	</div>
+
+<script src="../js/snake.js" ></script>
+</body>
+
+</html>

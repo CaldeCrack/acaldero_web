@@ -1,0 +1,13 @@
+iframe {
+	display: block;
+	margin: 0 auto;
+}
+
+.intro, .server, .proyectos {
+	padding: 8px;
+}
+
+ul {
+	display: inline-block;
+	text-align: left;
+}

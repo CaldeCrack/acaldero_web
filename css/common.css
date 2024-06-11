@@ -1,0 +1,17 @@
+body {
+	background-color: black;
+	color: white;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.container > div {
+	vertical-align: bottom;
+	flex-basis: 0;
+	flex-grow: 1;
+}

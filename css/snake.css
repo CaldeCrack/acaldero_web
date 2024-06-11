@@ -1,0 +1,18 @@
+h1 {
+	margin-block-end: 4px;
+}
+
+#canvas {
+	background-color: gray;
+}
+
+.container {
+	flex-direction: column;
+}
+
+.score-container {
+	width: 256px;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+}
