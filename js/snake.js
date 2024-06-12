@@ -61,17 +61,3 @@ setInterval(() => {
 	ctx.fillStyle = "lime";
 	snake.forEach(([x, y]) => ctx.fillRect(x * 16, y * 16, 16, 16));
 }, 125);
-
-$('#submit').on('click', function(e) {
-    e.preventDefault();
-    if( $('#username').val() ){
-        $.ajax({
-            url     : '../savescore.php',
-            method  : 'POST',
-            data    : { username: $('#username').val(), score: highScore },
-            success : function( response ) {
-                console.log( response );
-            }
-        });
-    }
-});
