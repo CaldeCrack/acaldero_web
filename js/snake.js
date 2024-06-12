@@ -1,4 +1,4 @@
-function randomInt(max) {
+const randomInt = (max) => {
 	return Math.floor(Math.random() * max);
 }
 
@@ -44,7 +44,7 @@ canvas.addEventListener('keydown', function(e) {
 setInterval(() => {
 	snake.unshift([(snake[0][0] + dx) & 15, (snake[0][1] + dy) & 15]);
 	if("" + snake[0] == apple) {
-		with(Math) do apple = [floor(random() * 16), floor(random() * 16)];
+		do apple = [Math.floor(Math.random() * 16), Math.floor(Math.random() * 16)];
 		while(snake.some(seg => "" + seg == apple));
 		scoreText.textContent = `Score: ${snake.length - 1}`;
 	} else if(snake.length >= 257 || snake.slice(1).some(seg => "" + seg == snake[0])) {
@@ -62,6 +62,16 @@ setInterval(() => {
 	snake.forEach(([x, y]) => ctx.fillRect(x * 16, y * 16, 16, 16));
 }, 125);
 
-function submitScore(username) {
-	console.log(username);
-}
+$('#submit').on('click', function(e) {
+    e.preventDefault();
+    if( $('#username').val() ){
+        $.ajax({
+            url     : '../savescore.php',
+            method  : 'POST',
+            data    : { username: $('#username').val(), score: highScore },
+            success : function( response ) {
+                console.log( response );
+            }
+        });
+    }
+});
