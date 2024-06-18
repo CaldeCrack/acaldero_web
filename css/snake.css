@@ -24,6 +24,12 @@ h1 {
 	flex-direction: row;
 }
 
+.scoreboard-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 table {
 	border-collapse: collapse;
 	box-shadow: 0 0 3px 1px black;
@@ -45,7 +51,6 @@ td {
 
 .submit-score {
 	text-align: left;
-	width: auto;
 	margin-top: 20px;
 }
 
@@ -89,4 +94,16 @@ td {
 
 #username:focus {
 	outline: none;
+}
+
+#error-messages {
+	width: 15%;
+	position: fixed;
+	padding: 8px;
+	background-color: #CF6679;
+	color: black;
+	text-align: center;
+	font-size: 18px;
+	border-radius: 4px;
+	box-shadow: 0 0 3px 1px black;
 }

@@ -25,6 +25,7 @@
 		</div>
 
 		<div class="scoreboard-container">
+			<h2>Scoreboard</h2>
 			<table id="scoreboard">
 				<thead>
 					<tr>
@@ -37,11 +38,12 @@
 			</table>
 
 			<div class="submit-score" id="submit-score" hidden>
-				<form action="javascript:submitScore()" id="form">
+				<form action="javascript:postScore()" id="form">
 					<label for="username">Usuario:</label><br>
 					<input type="text" name="username" id="username" placeholder="Ingrese su usuario" autocomplete="off"><br><br>
 					<input type="submit" value="SUBIR PUNTAJE" id="submit">
 				</form>
+				<p id="error-messages" hidden></p>
 			</div>
 		</div>
 	</div>
