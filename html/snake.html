@@ -11,14 +11,38 @@
 
 <body>
 	<div class="container">
-		<h1>Snake</h1>
-		<p>Haz click en el recuadro<br>Usa las flechas o 'WASD' para moverte</p>
-		<canvas id="canvas" width="256" height="256">
-			Your browser does not support the HTML canvas tag.
-		</canvas>
-		<div class="score-container">
-			<p id="score">Score: 0</p>
-			<p id="high-score">High Score: 0</p>
+		<div class="game-container">
+			<h1>Snake</h1>
+			<p>Haz click en el recuadro<br>Usa las flechas o 'WASD' para moverte</p>
+			<canvas id="canvas" width="256" height="256">
+				Your browser does not support the HTML canvas tag.
+			</canvas>
+
+			<div class="score-container">
+				<p id="score">Score: 0</p>
+				<p id="high-score">High Score: 0</p>
+			</div>
+		</div>
+
+		<div class="scoreboard-container">
+			<table id="scoreboard">
+				<thead>
+					<tr>
+						<th>Puesto</th>
+						<th>Usuario</th>
+						<th>Highscore</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+
+			<div class="submit-score" id="submit-score" hidden>
+				<form action="javascript:submitScore()" id="form">
+					<label for="username">Usuario:</label><br>
+					<input type="text" name="username" id="username" placeholder="Ingrese su usuario" autocomplete="off"><br><br>
+					<input type="submit" value="SUBIR PUNTAJE" id="submit">
+				</form>
+			</div>
 		</div>
 	</div>
 

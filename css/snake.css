@@ -3,11 +3,18 @@ h1 {
 }
 
 #canvas {
-	background-color: gray;
+	background-color: #1e1e1e;
+	box-shadow: 0 0 3px 1px black;
+}
+
+.game-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .container {
-	flex-direction: column;
+	flex-direction: row;
 }
 
 .score-container {
@@ -15,4 +22,71 @@ h1 {
 	display: flex;
 	justify-content: space-around;
 	flex-direction: row;
+}
+
+table {
+	border-collapse: collapse;
+	box-shadow: 0 0 3px 1px black;
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+thead {
+	background-color: #121212;
+}
+
+td {
+	background-color: #1e1e1e;
+}
+
+.submit-score {
+	text-align: left;
+	width: auto;
+	margin-top: 20px;
+}
+
+#submit {
+	background-color: #bb86fc;
+	color: black;
+	border-radius: 3px;
+	padding: 12px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+	box-shadow: 0 0 3px 1px black;
+}
+
+@keyframes change-color {
+	to {background-color: #e1e1e1;}
+}
+
+@keyframes active-animation {
+	to { 
+		color: #e1e1e1;
+		background-color: #121212;
+	}
+}
+
+#submit:hover {
+	animation: change-color 0.3s forwards;
+}
+
+#submit:active {
+	animation: active-animation 0.05s forwards;
+}
+
+#username {
+	border: none;
+	border-radius: 3px;
+	padding: 6px;
+	background-color: #e1e1e1;
+	box-shadow: 0 0 3px 1px black;
+}
+
+#username:focus {
+	outline: none;
 }

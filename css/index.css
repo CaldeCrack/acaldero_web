@@ -1,6 +1,7 @@
 iframe {
 	display: block;
 	margin: 0 auto;
+	box-shadow: 0 0 3px 1px black;
 }
 
 .intro, .server, .proyectos {
@@ -10,4 +11,8 @@ iframe {
 ul {
 	display: inline-block;
 	text-align: left;
+}
+
+img {
+	box-shadow: 0 0 3px 1px black;
 }
