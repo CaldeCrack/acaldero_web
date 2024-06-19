@@ -211,7 +211,7 @@ const postScore = () => {
 	.then(rep => {
 		submitScore.hidden = true;
 		const jsData = JSON.parse(rep);
-		if(jsData.length && (password != jsData.password)) {
+		if(jsData.length && (password != jsData[0].password)) {
 			error_messages.hidden = false;
 			error_messages.innerText = "Contraseña incorrecta";
 			return;
