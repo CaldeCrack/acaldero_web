@@ -4,14 +4,22 @@ const randomInt = (max) => {
 	return Math.floor(Math.random() * max);
 }
 
+const crypt = (salt, text) => {
+	const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+	const byteHex = (n) => ("0" + Number(n).toString(16)).substring(-2);
+	const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+	return text.split("").map(textToChars).map(applySaltToChar).map(byteHex).join("");
+};
+
 const scoreText = document.getElementById("score");
 const highscoreText = document.getElementById("high-score");
 const submitScore = document.getElementById("submit-score");
 const error_messages = document.getElementById("error-messages");
+const ctx = canvas.getContext("2d");
+const akshdfklashd = "e10g0yfzxjmlm37igbtqkyth0jo7voo69v0tfmtw";
+let snake = [[randomInt(16), randomInt(16)]], apple = [randomInt(16), randomInt(16)], [dx, dy] = [0, 0];
 let highscore = 0;
 let lost = false;
-let ctx = canvas.getContext("2d");
-let snake = [[randomInt(16), randomInt(16)]], apple = [randomInt(16), randomInt(16)], [dx, dy] = [0, 0];
 while(apple == snake[0])
 	apple = [randomInt(16), randomInt(16)];
 
@@ -62,7 +70,7 @@ canvas.addEventListener('keydown', function(e) {
 setInterval(() => {
 	snake.unshift([(snake[0][0] + dx) & 15, (snake[0][1] + dy) & 15]);
 	if("" + snake[0] == apple) {
-		do apple = [Math.floor(Math.random() * 16), Math.floor(Math.random() * 16)];
+		with (Math) do apple = [floor(random() * 16), floor(random() * 16)];
 		while(snake.some(seg => "" + seg == apple));
 		scoreText.textContent = `Score: ${snake.length - 1}`;
 	} else if(!lost && (snake.length >= 257 || snake.slice(1).some(seg => "" + seg == snake[0]))) {
@@ -100,7 +108,7 @@ const getData = () => {
 	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa?sheet=snake&sort_by=highscore&sort_order=desc&limit=${limit}`;
 	const data = [];
 
-	fetch(url)
+	fetch(url, {headers: {'Authorization': `Bearer ${akshdfklashd}`}})
 	.then(res => res.text())
 	.then(rep => {
 		const jsData = JSON.parse(rep);
@@ -113,6 +121,7 @@ getData();
 // Submit data
 const addScore = (data) => {
 	const username = data.username;
+	const password = data.password;
 	const highscore = data.highscore;
 	const url = "https://sheetdb.io/api/v1/th32u66mwoyfa";
 
@@ -120,13 +129,15 @@ const addScore = (data) => {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${akshdfklashd}`
 		},
 		body: JSON.stringify({
 			data: [
 				{
 					'id': "INCREMENT",
 					'username': username,
+					'password': password,
 					'highscore': highscore
 				}
 			]
@@ -142,16 +153,16 @@ const updateScore = (data) => {
 	const username = data.username;
 	const highscore = data.highscore;
 	const prevscore = data.prevscore;
-	console.log(data);
 	if(prevscore >= highscore)
 		return;
-	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa/username/${username}`
+	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa/username/${username}`;
 
 	fetch(url, {
 		method: 'PATCH',
 		headers: {
 			'Accept': 'application/json',
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${akshdfklashd}`
 		},
 		body: JSON.stringify({
 			data: {
@@ -167,23 +178,45 @@ const updateScore = (data) => {
 
 const postScore = () => {
 	const data = Object.fromEntries(new FormData(document.querySelector('form')).entries());
+	const lkja1lrln = "K2LHF87agL85oa85oLF58Ogf298";
 	data.highscore = highscore;
 	let username = data.username;
+	const password = crypt(lkja1lrln, data.password);
 
-	if(!username.trim() || username.length < 3 || !highscore) {
+	if(!username.trim() || username.length < 3) {
 		error_messages.hidden = false;
-		error_messages.innerText = "Usuario debe tener al menos 3 carácteres y no estar en blanco";
+		error_messages.innerText = "Usuario debe tener al menos 3 carácteres";
 		return;
 	}
+
+	const txtScore = Number(highscoreText.innerText.split(" ").at(-1));
+	if(typeof(highscore) != "number" || txtScore != highscore || highscore < 1 || highscore > 255) {
+		error_messages.hidden = false;
+		error_messages.innerText = "Puntaje a subir es inválido";
+		return;
+	}
+
+	if(!data.password.trim() || data.password.length < 8) {
+		error_messages.hidden = false;
+		error_messages.innerText = "Contraseña debe tener al menos 8 carácteres";
+		return;
+	}
+
 	error_messages.hidden = true;
 	username = encodeURIComponent(username);
-	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa/search?username=${username}`;
+	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa/search?username=${username}&casesensitive=true`;
 
-	fetch(url)
+	fetch(url, {headers: {'Authorization': `Bearer ${akshdfklashd}`}})
 	.then(res => res.text())
 	.then(rep => {
-		const jsData = JSON.parse(rep);
-		jsData.length ? updateScore({username: username, highscore: highscore, prevscore: jsData[0].highscore}) : addScore({username: username, highscore: highscore});
 		submitScore.hidden = true;
+		const jsData = JSON.parse(rep);
+		if(jsData.length && (password != jsData.password)) {
+			error_messages.hidden = false;
+			error_messages.innerText = "Contraseña incorrecta";
+			return;
+		}
+		jsData.length ? updateScore({username: username, highscore: highscore, prevscore: jsData[0].highscore})
+						: addScore({username: username, password: password, highscore: highscore});
 	});
 }
