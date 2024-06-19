@@ -134,7 +134,6 @@ const addScore = (data) => {
 	})
 	.then((response) => response.json())
 	.finally(() => {
-		submitScore.hidden = true;
 		getData();
 	});
 }
@@ -142,6 +141,10 @@ const addScore = (data) => {
 const updateScore = (data) => {
 	const username = data.username;
 	const highscore = data.highscore;
+	const prevscore = data.prevscore;
+	console.log(data);
+	if(prevscore >= highscore)
+		return;
 	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa/username/${username}`
 
 	fetch(url, {
@@ -158,7 +161,6 @@ const updateScore = (data) => {
 	})
 	.then((response) => response.json())
 	.finally(() => {
-		submitScore.hidden = true;
 		getData();
 	});
 }
@@ -181,6 +183,7 @@ const postScore = () => {
 	.then(res => res.text())
 	.then(rep => {
 		const jsData = JSON.parse(rep);
-		jsData.length ? updateScore({username: username, highscore: highscore}) : addScore({username: username, highscore: highscore});
+		jsData.length ? updateScore({username: username, highscore: highscore, prevscore: jsData[0].highscore}) : addScore({username: username, highscore: highscore});
+		submitScore.hidden = true;
 	});
 }
