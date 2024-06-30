@@ -209,13 +209,13 @@ const postScore = () => {
 	fetch(url, {headers: {'Authorization': `Bearer ${akshdfklashd}`}})
 	.then(res => res.text())
 	.then(rep => {
-		submitScore.hidden = true;
 		const jsData = JSON.parse(rep);
 		if(jsData.length && (password != jsData[0].password)) {
 			error_messages.hidden = false;
 			error_messages.innerText = "Contraseña incorrecta";
 			return;
 		}
+		submitScore.hidden = true;
 		jsData.length ? updateScore({username: username, highscore: highscore, prevscore: jsData[0].highscore})
 						: addScore({username: username, password: password, highscore: highscore});
 	});
