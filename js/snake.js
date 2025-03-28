@@ -105,14 +105,14 @@ const updateScoreboard = (data) => {
 
 const getData = () => {
 	const limit = 10;
-	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa?sheet=snake&sort_by=highscore&sort_order=desc&limit=${limit}`;
+	const url = `https://sheetdb.io/api/v1/th32u66mwoyfa?sheet=snake&sort_by=fixed_highscore&sort_order=desc&limit=${limit}`;
 	const data = [];
 
 	fetch(url, {headers: {'Authorization': `Bearer ${akshdfklashd}`}})
 	.then(res => res.text())
 	.then(rep => {
 		const jsData = JSON.parse(rep);
-		jsData.forEach((element) => data.push({username: element.username, highscore: element.highscore}));
+		jsData.forEach((element) => data.push({username: element.username, highscore: element.fixed_highscore}));
 		updateScoreboard(data);
 	})
 }
