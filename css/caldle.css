@@ -1,0 +1,64 @@
+h1 {
+  font-size: 3em;
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+#game-board {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.letter-box {
+  font-family: Calibri;
+  font-color: white;
+  border: 2px solid gray;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.filled-box {
+  border: 2px solid white;
+}
+
+.letter-row {
+  display: flex;
+}
+
+#keyboard-cont {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#keyboard-cont div {
+  display: flex;
+}
+
+.second-row {
+  margin: 0.5rem 0;
+}
+
+.keyboard-button {
+  background-color: grey;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: 0;
+  border-radius: 4px;
+  padding: 0.9rem;
+  margin: 0 6px 0 0;
+  cursor: pointer;
+  text-transform: uppercase;
+}
