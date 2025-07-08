@@ -30,6 +30,7 @@ function insertLetter (pressedKey) {
 
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
     let box = row.children[nextLetter];
+    animateCSS(box, "pulse");
     box.textContent = pressedKey;
     box.classList.add("filled-box");
     currentGuess.push(pressedKey);
@@ -86,11 +87,11 @@ async function checkGuess () {
 			const data = await response.json();
 
 			if (!data.ok) {
-				alert("¡Palabra inválida!");
+				toastr.error("¡Palabra inválida!");
 				return;
 			}
 		} catch (error) {
-			alert("Error al validar la palabra. Intenta de nuevo.");
+			toast.error("Error al validar la palabra. Intenta de nuevo.");
 			console.error("Error al contactar con la API:", error);
 			return;
 		}
@@ -115,13 +116,14 @@ async function checkGuess () {
 
         let delay = 250 * i;
         setTimeout(()=> {
+            animateCSS(box, 'flipInX');
             box.style.backgroundColor = colorMap[letterColor];
             shadeKeyBoard(letter, letterColor);
         }, delay);
     }
 
     if (guessString === rightGuessString) {
-        alert("¡Adivinaste la palabra!");
+        toastr.success("¡Adivinaste la palabra!");
         guessesRemaining = 0;
         return;
     } else {
@@ -130,8 +132,8 @@ async function checkGuess () {
         nextLetter = 0;
 
         if (guessesRemaining === 0) {
-            alert("¡Se te acabaron los intentos! ¡Perdiste!");
-            alert(`La palabra era: "${rightGuessString}"`);
+            toastr.error("¡Se te acabaron los intentos! ¡Perdiste!");
+            toastr.info(`La palabra era: "${rightGuessString}"`);
         }
     }
 }
@@ -169,3 +171,19 @@ document.addEventListener("keyup", (e) => {
     else
         insertLetter(pressedKey);
 })
+
+const animateCSS = (element, animation, prefix = 'animate__') =>
+  new Promise((resolve, reject) => {
+    const animationName = `${prefix}${animation}`;
+    const node = element;
+    node.style.setProperty('--animate-duration', '0.5s');
+    node.classList.add(`${prefix}animated`, animationName);
+
+    function handleAnimationEnd(event) {
+      event.stopPropagation();
+      node.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
