@@ -1,0 +1,222 @@
+:root {
+	--bg: #1e1e1e;
+	--board: #2e2e2e;
+	--tile-bg: #3c3c3c;
+	--empty: #3a3a3a;
+
+	--text: #e0e0e0;
+	--accent: #9c6ada;
+
+	--tile-size: 96px;
+	--gap: 16px;
+	--radius: 6px;
+
+	font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+}
+
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg);
+	height: 100vh;
+	margin: 0;
+	color: var(--text);
+}
+
+
+.game {
+	width: calc(var(--tile-size) * 4 + var(--gap) * 5);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+#overlay {
+  display: none
+}
+
+h1 {
+	margin: 0;
+	font-size: 20px;
+	color: var(--accent);
+}
+
+.scores {
+	display: flex;
+	gap: 10px;
+}
+
+.score-box {
+	background: #444;
+	color: #fff;
+	padding: 8px 12px;
+	border-radius: 6px;
+	font-weight: 700;
+}
+
+.controls {
+	display: flex;
+	gap: 10px;
+	margin-top: 8px;
+}
+
+.btn {
+	background: var(--accent);
+	color: white;
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+
+.board {
+	background: var(--board);
+	padding: var(--gap);
+	border-radius: var(--radius);
+	position: relative;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(4, var(--tile-size));
+	grid-template-rows: repeat(4, var(--tile-size));
+	gap: var(--gap);
+}
+
+.cell {
+	width: var(--tile-size);
+	height: var(--tile-size);
+	border-radius: 6px;
+	background: var(--empty);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	font-weight: 700;
+	color: #ddd;
+}
+
+
+.tile-layer {
+	position: absolute;
+	inset: var(--gap);
+	pointer-events: none;
+}
+
+.tile {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	font-weight: 700;
+	transition: transform 120ms ease,
+				width 120ms ease,
+				height 120ms ease,
+				left 120ms ease,
+				top 120ms ease;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.tile .value {
+	font-size: 28px;
+}
+
+
+.t-1 { background: #3d3d3d; color: #dcdcdc; }
+.t-2 { background: #5a5a5a; color: #f0f0f0; }
+.t-3 { background: #8a6df0; color: #fff; }
+.t-4 { background: #9f60ff; color: #fff; }
+.t-5 { background: #b86bff; color: #fff; }
+.t-6 { background: #cf6cff; color: #fff; }
+.t-7 { background: #e070ff; color: #fff; }
+.t-8 { background: #ff79c6; color: #fff; }
+.t-9 { background: #ff92df; color: #fff; }
+
+.t-large {
+	font-size: 22px;
+	padding: 6px 10px;
+}
+
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.65);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 28px;
+	color: #fff;
+	border-radius: 6px;
+}
+
+.help {
+	margin-top: 12px;
+	color: #aaa;
+	font-size: 13px;
+}
+
+
+.music-manager {
+	position: fixed;
+	right: 18px;
+	bottom: 18px;
+	background: rgba(40,40,40,0.95);
+	color: var(--text);
+	padding: 10px 12px;
+	border-radius: 8px;
+	box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+	font-size: 13px;
+	width: 240px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	z-index: 999;
+}
+
+.music-manager .mm-track {
+	font-weight: 700;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.music-manager .mm-controls {
+	display:flex;
+	gap:8px;
+	justify-content:center;
+}
+
+.mm-btn {
+	background: var(--accent);
+	color: #fff;
+	border: none;
+	padding: 6px 8px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: 700;
+}
+
+.mm-info { text-align:center; color:#ddd }
+
+
+@media (max-width: 520px) {
+	:root {
+		--tile-size: 64px;
+		--gap: 10px;
+	}
+
+	h1 {
+		font-size: 16px;
+	}
+}

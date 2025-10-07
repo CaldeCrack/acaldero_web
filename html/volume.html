@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2048 - Volume</title>
+  <link rel="stylesheet" href="../css/volume.css">
+</head>
+<body>
+  <div class="game">
+    <div class="header">
+      <h1>2048 - Volume</h1>
+      <div>
+        <div class="scores">
+          <div class="score-box">Score <span id="score">0</span></div>
+          <div class="score-box">Goal <span>30,000</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board" id="board">
+      <div class="grid" id="grid">
+      </div>
+      <div class="tile-layer" id="tile-layer"></div>
+      <div class="overlay" id="overlay"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="reset">Reset</button>
+    </div>
+    <div class="help">Controls: Arrow keys or WASD.</div>
+  </div>
+
+  <audio id="bg-music" src="music/Shop - Toby Fox.mp3" loop preload="auto" autoplay playsinline></audio>
+  <div class="music-manager" id="music-manager" aria-label="Music Manager">
+    <div class="mm-track" id="mm-track">Shop - Toby Fox</div>
+    <div class="mm-controls">
+      <button class="mm-btn" id="mm-prev" title="Previous">◀</button>
+      <button class="mm-btn" id="mm-play" title="Play/Pause">Pause</button>
+      <button class="mm-btn" id="mm-next" title="Next">▶</button>
+    </div>
+    <div class="mm-info">Volume: <span id="mm-volume">0%</span></div>
+  </div>
+
+  <script src="../js/volume.js"></script>
+</body>
+</html>
