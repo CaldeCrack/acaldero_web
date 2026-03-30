@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/tictactoe.css" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="ttt-shell">
+            <h1>Tic-Tac-Toe</h1>
+            <p class="subtitle">Play against a perfect opponent.</p>
+
+            <div class="score-strip">
+                <div class="score-pill">You (X): <span id="score-human">0</span></div>
+                <div class="score-pill">AI (O): <span id="score-ai">0</span></div>
+                <div class="score-pill">Draws: <span id="score-draw">0</span></div>
+            </div>
+
+            <div class="board" id="board" role="grid" aria-label="Tic tac toe board">
+                <button class="cell" data-index="0" aria-label="Cell 1"></button>
+                <button class="cell" data-index="1" aria-label="Cell 2"></button>
+                <button class="cell" data-index="2" aria-label="Cell 3"></button>
+                <button class="cell" data-index="3" aria-label="Cell 4"></button>
+                <button class="cell" data-index="4" aria-label="Cell 5"></button>
+                <button class="cell" data-index="5" aria-label="Cell 6"></button>
+                <button class="cell" data-index="6" aria-label="Cell 7"></button>
+                <button class="cell" data-index="7" aria-label="Cell 8"></button>
+                <button class="cell" data-index="8" aria-label="Cell 9"></button>
+            </div>
+
+            <p id="status" class="status">Your turn.</p>
+
+            <div class="controls">
+                <button id="new-round" class="btn">New round</button>
+                <button id="swap-start" class="btn secondary">Swap starter</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/tictactoe.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap");
+
+:root {
+    --bg-a: #14091f;
+    --bg-b: #231033;
+    --panel: rgba(30, 16, 44, 0.84);
+    --line: #d6b6ff;
+    --x-color: #ff7bcf;
+    --o-color: #9f86ff;
+    --text: #f2e9ff;
+    --muted: #b9a0d8;
+    --button: #6f42c1;
+    --button-2: #4f2f89;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(circle at 8% 20%, rgba(172, 120, 255, 0.33) 0%, transparent 36%),
+        radial-gradient(circle at 88% 14%, rgba(111, 66, 193, 0.34) 0%, transparent 30%),
+        linear-gradient(130deg, var(--bg-a), var(--bg-b));
+    color: var(--text);
+    font-family: "DM Sans", sans-serif;
+    padding: 20px 14px;
+}
+
+.container {
+    min-height: calc(100vh - 40px);
+}
+
+.ttt-shell {
+    width: min(94vw, 370px);
+    background: var(--panel);
+    border: 2px solid rgba(214, 182, 255, 0.16);
+    border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(8, 2, 15, 0.45);
+    padding: 26px 22px;
+}
+
+h1 {
+    margin: 0;
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(2rem, 6vw, 2.7rem);
+    letter-spacing: 0.5px;
+    color: var(--line);
+}
+
+.subtitle {
+    margin: 4px 0 18px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.score-strip {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 16px;
+}
+
+.score-pill {
+    border-radius: 999px;
+    padding: 8px 10px;
+    font-weight: 700;
+    color: var(--line);
+    background: rgba(56, 33, 84, 0.7);
+    border: 1px solid rgba(214, 182, 255, 0.2);
+    font-size: 0.92rem;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 240px;
+    margin: 0 auto;
+}
+
+.cell {
+    aspect-ratio: 1;
+    border: 2px solid rgba(214, 182, 255, 0.25);
+    border-radius: 16px;
+    background: rgba(39, 22, 58, 0.92);
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(1.45rem, 5.2vw, 2rem);
+    color: var(--line);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.cell:hover:enabled {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 14px rgba(8, 2, 15, 0.45);
+    background: rgba(52, 30, 77, 0.98);
+}
+
+.cell:disabled {
+    cursor: not-allowed;
+}
+
+.cell.x {
+    color: var(--x-color);
+}
+
+.cell.o {
+    color: var(--o-color);
+}
+
+.status {
+    min-height: 24px;
+    margin: 14px 0 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--line);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn {
+    border: 1px solid rgba(214, 182, 255, 0.22);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #f5eeff;
+    background: var(--button);
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+    filter: brightness(1.03);
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.secondary {
+    background: var(--button-2);
+}
+
+@media (max-width: 520px) {
+    .ttt-shell {
+        padding: 20px 14px;
+    }
+
+    .score-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+}
