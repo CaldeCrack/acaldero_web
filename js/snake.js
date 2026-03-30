@@ -26,20 +26,36 @@ const akshdfklashd = "e10g0yfzxjmlm37igbtqkyth0jo7voo69v0tfmtw"
 let snake = [[randomInt(16), randomInt(16)]],
   apple = [randomInt(16), randomInt(16)],
   [dx, dy] = [0, 0]
-let nextDx = 0,
-  nextDy = 0,
-  hasQueuedTurn = false
+let inputBuffer = []
 let highscore = 0
 let lost = false
+const tileSize = 16
+const gridSize = 16
 while (apple == snake[0]) apple = [randomInt(16), randomInt(16)]
+
+const drawScene = () => {
+  for (let y = 0; y < gridSize; y++) {
+    for (let x = 0; x < gridSize; x++) {
+      ctx.fillStyle = (x + y) % 2 === 0 ? "#1e1221" : "#2b1730"
+      ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize)
+    }
+  }
+
+  ctx.fillStyle = "#ff6767"
+  ctx.fillRect(apple[0] * tileSize, apple[1] * tileSize, tileSize, tileSize)
+
+  snake.forEach(([x, y], i) => {
+    ctx.fillStyle = i === 0 ? "#79ff66" : "#3fbf5b"
+    ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize)
+  })
+}
 
 const resetGame = () => {
   snake = [[randomInt(16), randomInt(16)]]
   apple = [randomInt(16), randomInt(16)]
   while ("" + apple == snake[0]) apple = [randomInt(16), randomInt(16)]
   ;[dx, dy] = [0, 0]
-  ;[nextDx, nextDy] = [0, 0]
-  hasQueuedTurn = false
+  inputBuffer = []
   lost = false
   scoreText.textContent = "Score: 0"
   submitScore.hidden = true
@@ -84,12 +100,18 @@ canvas.addEventListener("keydown", function (e) {
   error_messages.hidden = true
 
   if (dx || dy) {
-    if (hasQueuedTurn || (ndx == -dx && ndy == -dy)) {
+    const [lastPlannedDx, lastPlannedDy] =
+      inputBuffer.length > 0 ? inputBuffer[inputBuffer.length - 1] : [dx, dy]
+
+    if (
+      inputBuffer.length >= 2 ||
+      (ndx == -lastPlannedDx && ndy == -lastPlannedDy) ||
+      (ndx == lastPlannedDx && ndy == lastPlannedDy)
+    ) {
       e.preventDefault()
       return false
     }
-    ;[nextDx, nextDy] = [ndx, ndy]
-    hasQueuedTurn = true
+    inputBuffer.push([ndx, ndy])
   } else {
     ;[dx, dy] = [ndx, ndy]
   }
@@ -100,17 +122,12 @@ canvas.addEventListener("keydown", function (e) {
 
 // Update frames
 setInterval(() => {
-  if (hasQueuedTurn) {
-    ;[dx, dy] = [nextDx, nextDy]
-    hasQueuedTurn = false
+  if (inputBuffer.length) {
+    ;[dx, dy] = inputBuffer.shift()
   }
 
   if (!dx && !dy) {
-    ctx.clearRect(0, 0, 256, 256)
-    ctx.fillStyle = "red"
-    ctx.fillRect(apple[0] * 16, apple[1] * 16, 16, 16)
-    ctx.fillStyle = "lime"
-    snake.forEach(([x, y]) => ctx.fillRect(x * 16, y * 16, 16, 16))
+    drawScene()
     return
   }
 
@@ -132,19 +149,14 @@ setInterval(() => {
     scoreText.textContent = "Score: 0"
     snake.splice(1)
     ;[dx, dy] = [0, 0]
-    ;[nextDx, nextDy] = [0, 0]
-    hasQueuedTurn = false
+    inputBuffer = []
     lost = true
     if (confirm(`Perdiste con ${lostScore} puntos. ¿Quieres reintentar?`))
       resetGame()
     else if (lostScore > 0) submitScore.hidden = false
   } else snake.pop()
 
-  ctx.clearRect(0, 0, 256, 256)
-  ctx.fillStyle = "red"
-  ctx.fillRect(apple[0] * 16, apple[1] * 16, 16, 16)
-  ctx.fillStyle = "lime"
-  snake.forEach(([x, y]) => ctx.fillRect(x * 16, y * 16, 16, 16))
+  drawScene()
 }, 125)
 
 // Update scoreboard
