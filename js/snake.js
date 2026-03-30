@@ -23,6 +23,18 @@ let lost = false;
 while(apple == snake[0])
 	apple = [randomInt(16), randomInt(16)];
 
+const resetGame = () => {
+	snake = [[randomInt(16), randomInt(16)]];
+	apple = [randomInt(16), randomInt(16)];
+	while("" + apple == snake[0])
+		apple = [randomInt(16), randomInt(16)];
+	[dx, dy] = [0, 0];
+	lost = false;
+	scoreText.textContent = 'Score: 0';
+	submitScore.hidden = true;
+	error_messages.hidden = true;
+}
+
 canvas.tabIndex = 0;
 canvas.onclick = function(e) {
 	document.body.scrollTop = canvas.offsetTop;
@@ -68,19 +80,34 @@ canvas.addEventListener('keydown', function(e) {
 
 // Update frames
 setInterval(() => {
+	if(!dx && !dy) {
+		ctx.clearRect(0, 0, 256, 256);
+		ctx.fillStyle = "red";
+		ctx.fillRect(apple[0] * 16, apple[1] * 16, 16, 16);
+		ctx.fillStyle = "lime";
+		snake.forEach(([x, y]) => ctx.fillRect(x * 16, y * 16, 16, 16));
+		return;
+	}
+
 	snake.unshift([(snake[0][0] + dx) & 15, (snake[0][1] + dy) & 15]);
 	if("" + snake[0] == apple) {
-		with (Math) do apple = [floor(random() * 16), floor(random() * 16)];
-		while(snake.some(seg => "" + seg == apple));
+		do {
+			apple = [randomInt(16), randomInt(16)];
+		} while(snake.some(seg => "" + seg == apple));
 		scoreText.textContent = `Score: ${snake.length - 1}`;
 	} else if(!lost && (snake.length >= 257 || snake.slice(1).some(seg => "" + seg == snake[0]))) {
-		highscore = Math.max(highscore, snake.length - 2);
+		const lostScore = snake.length - 2;
+		highscore = Math.max(highscore, lostScore);
 		highscoreText.textContent = `High Score: ${highscore}`;
+		submitScore.hidden = true;
+		error_messages.hidden = true;
 		scoreText.textContent = 'Score: 0';
 		snake.splice(1);
 		[dx, dy] = [0, 0];
 		lost = true;
-		if(highscore)
+		if(confirm(`Perdiste con ${lostScore} puntos. ¿Quieres reintentar?`))
+			resetGame();
+		else if(lostScore > 0)
 			submitScore.hidden = false;
 	} else
 		snake.pop();
