@@ -26,6 +26,9 @@ const akshdfklashd = "e10g0yfzxjmlm37igbtqkyth0jo7voo69v0tfmtw"
 let snake = [[randomInt(16), randomInt(16)]],
   apple = [randomInt(16), randomInt(16)],
   [dx, dy] = [0, 0]
+let nextDx = 0,
+  nextDy = 0,
+  hasQueuedTurn = false
 let highscore = 0
 let lost = false
 while (apple == snake[0]) apple = [randomInt(16), randomInt(16)]
@@ -33,8 +36,10 @@ while (apple == snake[0]) apple = [randomInt(16), randomInt(16)]
 const resetGame = () => {
   snake = [[randomInt(16), randomInt(16)]]
   apple = [randomInt(16), randomInt(16)]
-  while ("" + apple == snake[0])
-    apple = [randomInt(16), randomInt(16)][(dx, dy)] = [0, 0]
+  while ("" + apple == snake[0]) apple = [randomInt(16), randomInt(16)]
+  ;[dx, dy] = [0, 0]
+  ;[nextDx, nextDy] = [0, 0]
+  hasQueuedTurn = false
   lost = false
   scoreText.textContent = "Score: 0"
   submitScore.hidden = true
@@ -50,42 +55,56 @@ canvas.onclick = function (e) {
 // Controls
 canvas.addEventListener("keydown", function (e) {
   let key = e.which
+  let ndx = 0
+  let ndy = 0
+
   switch (key) {
     case 37:
     case 65:
-      lost = false
-      submitScore.hidden = true
-      error_messages.hidden = true
-      ;[dx, dy] = [dx || -1, 0]
+      ;[ndx, ndy] = [-1, 0]
       break
     case 38:
     case 87:
-      lost = false
-      submitScore.hidden = true
-      error_messages.hidden = true
-      ;[dx, dy] = [0, dy || -1]
+      ;[ndx, ndy] = [0, -1]
       break
     case 39:
     case 68:
-      lost = false
-      submitScore.hidden = true
-      error_messages.hidden = true
-      ;[dx, dy] = [dx || 1, 0]
+      ;[ndx, ndy] = [1, 0]
       break
     case 40:
     case 83:
-      lost = false
-      submitScore.hidden = true
-      error_messages.hidden = true
-      ;[dx, dy] = [0, dy || 1]
+      ;[ndx, ndy] = [0, 1]
       break
+    default:
+      return
   }
+
+  lost = false
+  submitScore.hidden = true
+  error_messages.hidden = true
+
+  if (dx || dy) {
+    if (hasQueuedTurn || (ndx == -dx && ndy == -dy)) {
+      e.preventDefault()
+      return false
+    }
+    ;[nextDx, nextDy] = [ndx, ndy]
+    hasQueuedTurn = true
+  } else {
+    ;[dx, dy] = [ndx, ndy]
+  }
+
   e.preventDefault()
   return false
 })
 
 // Update frames
 setInterval(() => {
+  if (hasQueuedTurn) {
+    ;[dx, dy] = [nextDx, nextDy]
+    hasQueuedTurn = false
+  }
+
   if (!dx && !dy) {
     ctx.clearRect(0, 0, 256, 256)
     ctx.fillStyle = "red"
@@ -113,6 +132,8 @@ setInterval(() => {
     scoreText.textContent = "Score: 0"
     snake.splice(1)
     ;[dx, dy] = [0, 0]
+    ;[nextDx, nextDy] = [0, 0]
+    hasQueuedTurn = false
     lost = true
     if (confirm(`Perdiste con ${lostScore} puntos. ¿Quieres reintentar?`))
       resetGame()
