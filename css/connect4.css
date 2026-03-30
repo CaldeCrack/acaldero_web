@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&family=Nunito:wght@500;700;800&display=swap");
+
+:root {
+    --bg-a: #07172a;
+    --bg-b: #0d2a44;
+    --panel: rgba(10, 33, 58, 0.85);
+    --text: #e9f2ff;
+    --muted: #b4c7df;
+    --line: rgba(224, 241, 255, 0.22);
+    --board: #123f69;
+    --slot: #071a2f;
+    --human: #ffb347;
+    --ai: #ff556a;
+    --button: #1d6fb5;
+    --button-hover: #2a84d2;
+    --cell-size: clamp(24px, 5.2vw, 36px);
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(circle at 12% 18%, rgba(43, 145, 220, 0.35) 0%, transparent 38%),
+        radial-gradient(circle at 86% 20%, rgba(255, 179, 71, 0.2) 0%, transparent 32%),
+        linear-gradient(145deg, var(--bg-a), var(--bg-b));
+    color: var(--text);
+    font-family: "Nunito", sans-serif;
+    padding: 20px 14px;
+}
+
+.container {
+    min-height: calc(100vh - 40px);
+}
+
+.c4-shell {
+    width: min(94vw, 430px);
+    background: var(--panel);
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(4, 11, 20, 0.45);
+    padding: 20px 14px 16px;
+}
+
+h1 {
+    margin: 0;
+    font-family: "Russo One", sans-serif;
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    letter-spacing: 0.8px;
+}
+
+.subtitle {
+    margin: 4px 0 12px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.score-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.score-pill {
+    border-radius: 999px;
+    padding: 7px 9px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    border: 1px solid var(--line);
+    background: rgba(10, 31, 53, 0.78);
+}
+
+.status {
+    min-height: 24px;
+    margin: 8px 0 10px;
+    font-weight: 800;
+    font-size: 0.92rem;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(7, var(--cell-size));
+    grid-template-rows: repeat(6, var(--cell-size));
+    justify-content: center;
+    gap: 4px;
+    background: var(--board);
+    border-radius: 12px;
+    padding: 8px;
+    border: 1px solid rgba(233, 242, 255, 0.18);
+    margin-inline: auto;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    background: var(--slot);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.14s ease, outline-color 0.14s ease;
+    cursor: pointer;
+}
+
+.board.playable .cell.column-hover {
+    transform: scale(1.06);
+    outline: 2px solid rgba(233, 242, 255, 0.38);
+    outline-offset: -1px;
+}
+
+.cell.human {
+    background: radial-gradient(circle at 28% 22%, #ffd8a3, var(--human) 58%, #d8821e 100%);
+}
+
+.cell.ai {
+    background: radial-gradient(circle at 28% 22%, #ffb1bc, var(--ai) 56%, #b6112e 100%);
+}
+
+.actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    border: 1px solid rgba(233, 242, 255, 0.25);
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text);
+    background: var(--button);
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--button-hover);
+}
+
+@media (max-width: 560px) {
+    .c4-shell {
+        padding: 16px 10px 14px;
+    }
+
+    .score-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .board {
+        gap: 3px;
+        padding: 7px;
+    }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/connect4.css" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect 4</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="c4-shell">
+            <h1>Connect 4</h1>
+            <p class="subtitle">Drop your discs and beat the bot.</p>
+
+            <div class="score-strip">
+                <div class="score-pill">You: <span id="score-human">0</span></div>
+                <div class="score-pill">AI: <span id="score-ai">0</span></div>
+                <div class="score-pill">Draws: <span id="score-draw">0</span></div>
+            </div>
+
+            <p id="status" class="status">Click a column to drop.</p>
+
+            <div class="board" id="board" role="grid" aria-label="Connect 4 board"></div>
+
+            <div class="actions">
+                <button id="new-round" class="btn">New round</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/connect4.js"></script>
+</body>
+
+</html>
