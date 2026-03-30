@@ -146,13 +146,13 @@ tbody tr:hover td {
 	width: min(100%, 360px);
 	padding: 12px;
 	border-radius: 10px;
-	background: rgba(11, 22, 15, 0.7);
-	border: 1px solid rgba(159, 255, 188, 0.12);
+	background: rgba(21, 11, 22, 0.7);
+	border: 1px solid rgba(244, 159, 255, 0.12);
 }
 
 #submit {
-	background: linear-gradient(145deg, #a8ff9f, #4fbf65);
-	color: #05200f;
+	background: linear-gradient(145deg, #e49fff, #9f4fbf);
+	color: #180520;
 	border-radius: 8px;
 	padding: 12px;
 	border: none;
@@ -160,14 +160,14 @@ tbody tr:hover td {
 	font-weight: 700;
 	font-family: "Chakra Petch", sans-serif;
 	letter-spacing: 0.6px;
-	box-shadow: 0 8px 18px rgba(45, 133, 75, 0.35);
+	box-shadow: 0 8px 18px rgba(115, 45, 133, 0.35);
 	transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 #submit:hover {
 	transform: translateY(-1px);
 	filter: brightness(1.08);
-	box-shadow: 0 10px 20px rgba(45, 133, 75, 0.42);
+	box-shadow: 0 10px 20px rgba(123, 45, 133, 0.42);
 }
 
 #submit:active {
@@ -176,7 +176,7 @@ tbody tr:hover td {
 
 input[type=text],
 input[type=password] {
-	border: 1px solid rgba(159, 255, 188, 0.24);
+	border: 1px solid rgba(239, 159, 255, 0.24);
 	border-radius: 8px;
 	padding: 8px;
 	background: #effff0;
@@ -189,7 +189,7 @@ input[type=password] {
 input[type=text]:focus,
 input[type=password]:focus {
 	border-color: var(--accent-deep);
-	box-shadow: 0 0 0 2px rgba(79, 191, 101, 0.22);
+	box-shadow: 0 0 0 2px rgba(178, 79, 191, 0.22);
 }
 
 #username {
